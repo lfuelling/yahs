@@ -8,6 +8,17 @@ It also is not meant to handle high volumes of traffic and should not be conside
 
 ## Usage
 
+Add the GammelCloud Repo:
+
+```xml
+<repositories>
+    <repository>
+        <id>gammelcloud</id>
+        <url>https://nexus.gammel.cloud/repository/maven-public/</url>
+    </repository>
+</repositories>
+```
+
 Add it to your dependencies:
 
 ```xml

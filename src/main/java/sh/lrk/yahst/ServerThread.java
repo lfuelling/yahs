@@ -32,7 +32,7 @@ class ServerThread implements Runnable {
     public void run() {
         try {
             Server server = new Server(routes, port, maxSize);
-            log.info("Server started!");
+            log.info("Server started on port " + port + "!");
             while (!shouldStop) {
                 try {
                     Request req = server.accept();

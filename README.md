@@ -19,7 +19,7 @@ Add the GammelCloud Repo:
 </repositories>
 ```
 
-Add it to your dependencies:
+Add the library to your dependencies:
 
 ```xml
 <dependency>

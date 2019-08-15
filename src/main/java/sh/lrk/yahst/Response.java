@@ -8,6 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.HashMap;
+
+import static sh.lrk.yahst.ContentType.*;
 
 /**
  * Class that represents a response.
@@ -21,32 +24,6 @@ import java.util.Date;
  */
 public final class Response {
 
-    public enum Status {
-        OK("200 OK"),
-        TEMPORARY_REDIRECT("307 Temporary Redirect"),
-        BAD_REQUEST("400 Bad Request"),
-        UNAUTHORIZED("401 Unauthorized"),
-        NOT_FOUND("404 Not Found"),
-        METHOD_NOT_ALLOWED("405 Method Not Allowed"),
-        INTERNAL_SERVER_ERROR("500 Internal Server Error");
-
-        private final String httpRepresentation;
-
-        Status(String httpRepresentation) {
-            this.httpRepresentation = httpRepresentation;
-        }
-
-        public String getHttpRepresentation() {
-            return httpRepresentation;
-        }
-    }
-
-    public static final String TEXT_HTML = "text/html";
-    public static final String TEXT_CSS = "text/css";
-    public static final String TEXT_PLAIN = "text/plain";
-    public static final String IMAGE_XICON = "image/x-icon";
-    public static final String IMAGE_JPEG = "image/jpeg";
-
     /**
      * Logger.
      */
@@ -55,25 +32,25 @@ public final class Response {
     private final byte[] body;
     private String header;
 
-    Response(byte[] body) {
+    public Response(byte[] body) {
         this(body, Status.OK);
     }
 
-    Response(byte[] body, Status status) {
-        this(body, status, TEXT_PLAIN, false, null);
+    public Response(byte[] body, Status status) {
+        this(body, status, TEXT_PLAIN, null);
     }
 
-    Response(byte[] body, Status status, String contentType) {
-        this(body, status, contentType, false);
+    public Response(byte[] body, ContentType contentType) {
+        this(body, Status.OK, contentType);
     }
 
-    Response(byte[] body, Status status, String contentType, boolean addAllow) {
-        this(body, status, contentType, addAllow, null);
+    public Response(byte[] body, Status status, ContentType contentType) {
+        this(body, status, contentType, null);
     }
 
-    Response(byte[] body, Status status, String contentType, boolean addAllow, String location) {
+    public Response(byte[] body, Status status, ContentType contentType, HashMap<String, String> headers) {
         this.body = body;
-        buildHeader(status, contentType, addAllow, location);
+        buildHeader(status, contentType, headers);
     }
 
     public Response(String body) {
@@ -84,35 +61,37 @@ public final class Response {
         this(body, status, TEXT_PLAIN);
     }
 
-    public Response(String body, Status status, String contentType) {
+    public Response(String body, ContentType contentType) {
+        this(body, Status.OK, contentType);
+    }
+
+    public Response(String body, Status status, ContentType contentType) {
         this(body.getBytes(), status, contentType);
     }
 
-    private void buildHeader(Status status, String contentType, boolean addAllow, String location) {
+    private void buildHeader(Status status, ContentType contentType, HashMap<String, String> headers) {
         Date date = new Date();
         String start = "HTTP/1.1 " + status.getHttpRepresentation() + "\r\n";
         header = "Date: " + date.toString() + "\r\n";
         header += "Content-Type: " + contentType + "\r\n";
         header += "Content-length: " + body.length + "\r\n";
 
-        if (addAllow) {
-            header += "Allow: GET, POST\r\n";
-        }
-
-        if (location != null) {
-            header += "Location: " + location + "\r\n";
+        if (headers != null) {
+            headers.forEach((k, v) ->
+                    header += k.replaceAll("\r", "").replaceAll("\n", "") + ": " +
+                            v.replaceAll("\r", "").replaceAll("\n", ""));
         }
 
         header += "\r\n";
         header = start + header;
     }
 
-    static Response getGenericErrorResponse(Request req) {
+    public static Response getGenericErrorResponse(Request req) {
         return new Response("Nothing found for url '" + req.getUrl() + "' with method '" + req.getMethod() + "'!",
                 Status.NOT_FOUND, TEXT_PLAIN);
     }
 
-    static Response fromFile(Request req, String path) {
+    public static Response fromFile(Request req, String path) {
         try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
             try {
                 ClassLoader classLoader = Response.class.getClassLoader();
@@ -134,15 +113,15 @@ public final class Response {
             }
 
             if (path.endsWith(".css")) {
-                return new Response(os.toByteArray(), Status.OK, TEXT_CSS);
+                return new Response(os.toByteArray(), TEXT_CSS);
             } else if (path.endsWith(".htm") || path.endsWith(".html")) {
-                return new Response(os.toByteArray(), Status.OK, TEXT_HTML);
+                return new Response(os.toByteArray(), TEXT_HTML);
             } else if (path.endsWith(".ico")) {
-                return new Response(os.toByteArray(), Status.OK, IMAGE_XICON);
+                return new Response(os.toByteArray(), IMAGE_XICON);
             } else if (path.endsWith(".jpg") || path.endsWith(".jpeg")) {
-                return new Response(os.toByteArray(), Status.OK, IMAGE_JPEG);
+                return new Response(os.toByteArray(), IMAGE_JPEG);
             } else {
-                return new Response(os.toByteArray());
+                return new Response(os.toByteArray(), APPLICATION_OCTET_STREAM);
             }
         } catch (IOException e) {
             log.error("Unable to write response to: '" + req.getUrl() + "'!", e);

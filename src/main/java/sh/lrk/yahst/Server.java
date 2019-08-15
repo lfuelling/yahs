@@ -9,6 +9,9 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import static sh.lrk.yahst.ContentType.TEXT_PLAIN;
+import static sh.lrk.yahst.Status.INTERNAL_SERVER_ERROR;
+
 /**
  * Class that represents the server.
  *
@@ -55,20 +58,14 @@ public final class Server {
 
     private Response getResponse(Request req) {
         if (req.getMethod() != null) {
-            if (req.getMethod().equals("GET") || req.getMethod().equals("POST")) {
-                IResponse mappedResponse = routes.get(req.getMethod() + "_" + req.getUrl());
-                if (mappedResponse == null) {
-                    return Response.getGenericErrorResponse(req);
-                }
-                return mappedResponse.getResponse(req);
-            } else {
-                String message = "Method '" + req.getMethod() + "' is not allowed!";
-                return new Response(message.getBytes(),
-                        Response.Status.METHOD_NOT_ALLOWED, Response.TEXT_PLAIN, true);
+            IResponse mappedResponse = routes.get(req.getMethod() + "_" + req.getUrl());
+            if (mappedResponse == null) {
+                return Response.getGenericErrorResponse(req);
             }
+            return mappedResponse.getResponse(req);
         } else {
             return new Response("Method is null!\n\n" + req.toString(),
-                    Response.Status.INTERNAL_SERVER_ERROR, Response.TEXT_PLAIN);
+                    INTERNAL_SERVER_ERROR, TEXT_PLAIN);
         }
     }
 
@@ -81,8 +78,9 @@ public final class Server {
 
     /**
      * This method is used to start the server.
-     * @param routes the routes
-     * @param port the port to listen on
+     *
+     * @param routes  the routes
+     * @param port    the port to listen on
      * @param maxSize the max allowed request body size
      */
     public static void start(Routes routes, int port, int maxSize) {

@@ -11,7 +11,7 @@ import java.util.Iterator;
 public final class Request {
 
     private String req;
-    private String method = null;
+    private Method method = null;
     private String url = null;
     private String httpVersion = null;
     private HashMap<String, String> attrs;
@@ -27,7 +27,7 @@ public final class Request {
         String firstLine = temp[0];
         String[] firstLineSplit = firstLine.split(" ");
         if (firstLineSplit.length == 3) {
-            method = firstLineSplit[0];
+            method = Method.parse(firstLineSplit[0]);
             httpVersion = firstLineSplit[2];
             if (method.equals("POST")) {
                 url = firstLineSplit[1];
@@ -74,15 +74,15 @@ public final class Request {
         attrs.put(key, value);
     }
 
-    String getMethod() {
+    public Method getMethod() {
         return method;
     }
 
-    String getHttpVersion() {
+    public String getHttpVersion() {
         return httpVersion;
     }
 
-    String getUrl() {
+    public String getUrl() {
         return url;
     }
 

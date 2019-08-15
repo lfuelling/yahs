@@ -1,4 +1,4 @@
-package sh.lrk.yahst;
+package sh.lrk.yahs;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 
-import static sh.lrk.yahst.ContentType.*;
+import static sh.lrk.yahs.ContentType.*;
 
 /**
  * Class that represents a response.

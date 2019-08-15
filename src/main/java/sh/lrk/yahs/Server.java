@@ -1,4 +1,4 @@
-package sh.lrk.yahst;
+package sh.lrk.yahs;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,8 +9,8 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static sh.lrk.yahst.ContentType.TEXT_PLAIN;
-import static sh.lrk.yahst.Status.INTERNAL_SERVER_ERROR;
+import static sh.lrk.yahs.ContentType.TEXT_PLAIN;
+import static sh.lrk.yahs.Status.INTERNAL_SERVER_ERROR;
 
 /**
  * Class that represents the server.

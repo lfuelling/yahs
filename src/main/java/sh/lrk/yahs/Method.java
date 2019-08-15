@@ -1,4 +1,4 @@
-package sh.lrk.yahst;
+package sh.lrk.yahs;
 
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;

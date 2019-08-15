@@ -1,4 +1,4 @@
-package sh.lrk.yahst;
+package sh.lrk.yahs;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

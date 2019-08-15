@@ -1,4 +1,4 @@
-package sh.lrk.yahst;
+package sh.lrk.yahs;
 
 import java.util.HashMap;
 import java.util.Iterator;

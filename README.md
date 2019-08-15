@@ -32,15 +32,12 @@ Add the library to your dependencies:
 Below is an example `main()` but technically you can start the server wherever you need to.
 
 ```java
-import sh.lrk.yahst.Method;
-import sh.lrk.yahst.Response;
-import sh.lrk.yahst.Routes;
-import sh.lrk.yahst.Server;
+import sh.lrk.yahs.*;
 
 public class Main {
     public static void main(String[] args) {
         Routes routes = new Routes(); // init routes
-        routes.add(Method.GET, "/", req -> new Response("Hello World!", Response.Status.OK)); // add route
+        routes.add(Method.GET, "/", req -> new Response("Hello World!", Status.OK)); // add route
         
         Server.start(routes,
         8080, // listen on port 8080

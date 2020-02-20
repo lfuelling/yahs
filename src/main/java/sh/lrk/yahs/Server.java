@@ -43,7 +43,7 @@ public final class Server {
         int c;
         do {
             if (counter >= maxSize) {
-                break; //TODO: maybe don't just cut stuff but it's enough for now.
+                throw new IOException(Status.PAYLOAD_TOO_LARGE.getHttpRepresentation());
             }
             counter++;
             c = is.read();
@@ -70,9 +70,17 @@ public final class Server {
     }
 
     void sendResponse(Request req) throws IOException {
-        Response resp = getResponse(req);
+        Response res = getResponse(req);
         try (OutputStream out = client.getOutputStream()) {
-            out.write(resp.getResponseBytes());
+            out.write(res.getResponseBytes());
+        }
+    }
+
+    void sendResponse(Response res) {
+        try (OutputStream out = client.getOutputStream()) {
+            out.write(res.getResponseBytes());
+        } catch (IOException e) {
+            log.error("Unable to send response!", e);
         }
     }
 
@@ -86,7 +94,7 @@ public final class Server {
     public static void start(Routes routes, int port, int maxSize) {
         log.info("Starting Server...");
 
-        ServerThread server = new ServerThread(routes, port, maxSize);
-        new Thread(server, "ServerThread").start();
+        ServerThread st = new ServerThread(routes, port, maxSize);
+        new Thread(st, "ServerThread").start();
     }
 }

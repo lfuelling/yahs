@@ -21,10 +21,10 @@ public enum ContentType {
         return httpRepresentation;
     }
 
-    public static ContentType parse(String method) {
+    public static ContentType parse(String contentType) {
         AtomicReference<ContentType> res = new AtomicReference<>();
         Arrays.asList(values()).forEach(v -> {
-            if (v.httpRepresentation.equals(method.trim().toUpperCase())) {
+            if (v.httpRepresentation.toUpperCase().equals(contentType.trim().toUpperCase())) {
                 res.set(v);
             }
         });

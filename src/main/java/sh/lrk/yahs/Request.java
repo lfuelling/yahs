@@ -29,10 +29,10 @@ public final class Request {
         if (firstLineSplit.length == 3) {
             method = Method.parse(firstLineSplit[0]);
             httpVersion = firstLineSplit[2];
-            if (method.equals("POST")) {
+            if (method.equals(Method.POST)) {
                 url = firstLineSplit[1];
                 setAttributes(temp[temp.length - 1]);
-            } else if (method.equals("GET")) {
+            } else if (method.equals(Method.GET)) {
                 String[] arr = firstLineSplit[1].split("[?]");
                 if (arr.length == 2) {
                     url = arr[0];
@@ -46,16 +46,15 @@ public final class Request {
         }
     }
 
-    Iterator getAttributeIterator() {
+    Iterator<String> getAttributeIterator() {
         return attrs.keySet().iterator();
     }
 
     private void setAttributes(String rawAttributes) {
         String[] attribs = rawAttributes.split("&");
 
-        //noinspection ForLoopReplaceableByForEach
-        for (int i = 0; i < attribs.length; i++) {
-            String[] attr = attribs[i].split("=");
+        for (String attrib : attribs) {
+            String[] attr = attrib.split("=");
             if (attr.length == 2) {
                 setAttribute(attr[0], attr[1].replace("+", " "));
             }

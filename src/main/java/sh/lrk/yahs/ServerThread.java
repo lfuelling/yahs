@@ -38,7 +38,10 @@ class ServerThread implements Runnable {
                     Request req = server.accept();
                     server.sendResponse(req);
                 } catch (IOException e) {
-                    log.warn("Unable to handle request!", e);
+                    log.error("Unable to handle request!", e);
+                    if(Status.isStatus(e.getMessage())) {
+                        server.sendResponse(new Response("", Status.parse(e.getMessage()), ContentType.TEXT_PLAIN));
+                    }
                 }
             }
             server.close();

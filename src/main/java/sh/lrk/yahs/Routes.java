@@ -25,12 +25,12 @@ public class Routes {
         return routes.get(key);
     }
 
-    public void add(Method method, String url, IResponse resp) {
-        routes.put(method.getHttpRepresentation() + "_" + url, resp);
+    public void add(Method method, String path, IResponse resp) {
+        routes.put(method.getHttpRepresentation() + "_" + path, resp);
     }
 
-    public void add(Method method, String url, String filepath) {
-        routes.put(method.getHttpRepresentation() + "_" + url,
+    public void add(Method method, String path, String filepath) {
+        routes.put(method.getHttpRepresentation() + "_" + path,
                 req -> Response.fromFile(req, filepath));
     }
 

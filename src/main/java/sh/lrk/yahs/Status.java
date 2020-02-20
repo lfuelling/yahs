@@ -64,13 +64,22 @@ public enum Status {
         return httpRepresentation;
     }
 
-    public static Status parse(String method) {
+    public static Status parse(String status) {
         AtomicReference<Status> res = new AtomicReference<>();
         Arrays.asList(values()).forEach(v -> {
-            if (v.httpRepresentation.equals(method.trim().toUpperCase())) {
+            if (v.httpRepresentation.toUpperCase().equals(status.trim().toUpperCase())) {
                 res.set(v);
             }
         });
         return res.get();
+    }
+
+    public static boolean isStatus(String s) {
+        for (Status status : values()) {
+            if(status.httpRepresentation.toUpperCase().equals(s.trim().toUpperCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

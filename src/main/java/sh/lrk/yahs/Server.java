@@ -60,6 +60,10 @@ public final class Server {
         if (req.getMethod() != null) {
             IResponse mappedResponse = routes.get(req.getMethod() + "_" + req.getUrl());
             if (mappedResponse == null) {
+                IResponse catchAll = routes.get("ALL");
+                if (catchAll != null) {
+                    return catchAll.getResponse(req);
+                }
                 return Response.getGenericErrorResponse(req);
             }
             return mappedResponse.getResponse(req);

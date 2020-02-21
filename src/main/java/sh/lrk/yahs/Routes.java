@@ -25,13 +25,21 @@ public class Routes {
         return routes.get(key);
     }
 
-    public void add(Method method, String path, IResponse resp) {
-        routes.put(method.getHttpRepresentation() + "_" + path, resp);
+    public void add(Method method, String path, IResponse res) {
+        routes.put(method.getHttpRepresentation() + "_" + path, res);
     }
 
     public void add(Method method, String path, String filepath) {
         routes.put(method.getHttpRepresentation() + "_" + path,
                 req -> Response.fromFile(req, filepath));
+    }
+
+    public void addCatchAll(String filepath) {
+        routes.put("ALL", req -> Response.fromFile(req, filepath));
+    }
+
+    public void addCatchAll(IResponse res) {
+        routes.put("ALL", res);
     }
 
 }

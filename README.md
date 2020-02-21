@@ -45,3 +45,7 @@ public class Main {
     }
 }
 ```
+
+## Projects using YAHS
+- [sh](https://github.com/lfuelling/sh)
+- [fail2ban-exporter](https://github.com/lfuelling/fail2ban-exporter)

@@ -92,6 +92,10 @@ public final class Response {
     }
 
     public static Response fromFile(Request req, String path) {
+        return fromFile(req, path, Status.OK);
+    }
+
+    public static Response fromFile(Request req, String path, Status status) {
         try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
             try {
                 ClassLoader classLoader = Response.class.getClassLoader();
@@ -113,15 +117,15 @@ public final class Response {
             }
 
             if (path.endsWith(".css")) {
-                return new Response(os.toByteArray(), TEXT_CSS);
+                return new Response(os.toByteArray(), status, TEXT_CSS);
             } else if (path.endsWith(".htm") || path.endsWith(".html")) {
-                return new Response(os.toByteArray(), TEXT_HTML);
+                return new Response(os.toByteArray(), status, TEXT_HTML);
             } else if (path.endsWith(".ico")) {
-                return new Response(os.toByteArray(), IMAGE_XICON);
+                return new Response(os.toByteArray(), status, IMAGE_XICON);
             } else if (path.endsWith(".jpg") || path.endsWith(".jpeg")) {
-                return new Response(os.toByteArray(), IMAGE_JPEG);
+                return new Response(os.toByteArray(), status, IMAGE_JPEG);
             } else {
-                return new Response(os.toByteArray(), APPLICATION_OCTET_STREAM);
+                return new Response(os.toByteArray(), status, APPLICATION_OCTET_STREAM);
             }
         } catch (IOException e) {
             log.error("Unable to write response to: '" + req.getUrl() + "'!", e);

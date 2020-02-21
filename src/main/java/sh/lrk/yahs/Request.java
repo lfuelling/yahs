@@ -1,5 +1,8 @@
 package sh.lrk.yahs;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -9,6 +12,8 @@ import java.util.Iterator;
  * @author Lukas Fülling (lukas@k40s.net)
  */
 public final class Request {
+
+    private static Logger log = LoggerFactory.getLogger(Request.class);
 
     private String req;
     private Method method = null;
@@ -25,6 +30,7 @@ public final class Request {
         this.req = req;
         attrs = new HashMap<>();
         parse();
+        log.debug("Incoming request:\n" + req);
     }
 
     private void parse() {

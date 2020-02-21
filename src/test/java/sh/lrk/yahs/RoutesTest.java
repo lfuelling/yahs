@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for the {@link Routes} class.
+ *
+ * @author Lukas Fülling (lukas@k40s.net)
+ */
 class RoutesTest {
 
     @Test

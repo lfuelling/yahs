@@ -29,12 +29,26 @@ public final class Server {
     private Routes routes;
     private final int maxSize;
 
+    /**
+     * Constructor.
+     *
+     * @param routes  the routes to use
+     * @param port    the port to use
+     * @param maxSize the maximum request size
+     * @throws IOException when there was an error creating the server
+     */
     Server(Routes routes, int port, int maxSize) throws IOException {
         socket = new ServerSocket(port);
         this.routes = routes;
         this.maxSize = maxSize;
     }
 
+    /**
+     * This method accepts an incoming request.
+     *
+     * @return the accepted request
+     * @throws IOException when there was an error handling the incoming request
+     */
     Request accept() throws IOException {
         client = socket.accept();
         InputStream is = client.getInputStream();
@@ -52,6 +66,11 @@ public final class Server {
         return new Request(raw.toString());
     }
 
+    /**
+     * This method closes a connection.
+     *
+     * @throws IOException when there was en error closing the connection
+     */
     void close() throws IOException {
         socket.close();
     }
@@ -73,6 +92,12 @@ public final class Server {
         }
     }
 
+    /**
+     * Sends a response by using the preconfigured routes.
+     *
+     * @param req the request to get the response for
+     * @throws IOException when there was an error generating or writing the response
+     */
     void sendResponse(Request req) throws IOException {
         Response res = getResponse(req);
         try (OutputStream out = client.getOutputStream()) {
@@ -80,6 +105,12 @@ public final class Server {
         }
     }
 
+    /**
+     * Sends a response directly.
+     * This method only logs any exception.
+     *
+     * @param res the response to send
+     */
     void sendResponse(Response res) {
         try (OutputStream out = client.getOutputStream()) {
             out.write(res.getResponseBytes());
@@ -91,7 +122,7 @@ public final class Server {
     /**
      * This method is used to start the server.
      *
-     * @param routes  the routes
+     * @param routes  the routes to use
      * @param port    the port to listen on
      * @param maxSize the max allowed request body size
      */

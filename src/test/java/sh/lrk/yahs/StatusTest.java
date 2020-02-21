@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for the {@link Status} enum.
+ *
+ * @author Lukas Fülling (lukas@k40s.net)
+ */
 class StatusTest {
 
     public static final String OK = "200 OK";

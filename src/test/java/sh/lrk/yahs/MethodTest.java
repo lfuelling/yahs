@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for the {@link Method} enum.
+ *
+ * @author Lukas Fülling (lukas@k40s.net)
+ */
 class MethodTest {
 
     public static final String VALID = "GET";

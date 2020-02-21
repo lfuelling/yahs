@@ -7,6 +7,7 @@ import java.io.IOException;
 
 /**
  * Class that represents the thread the server is running on.
+ * This is to be used internally only.
  *
  * @author Lukas Fülling (lukas@k40s.net)
  */
@@ -22,12 +23,22 @@ class ServerThread implements Runnable {
     private final int port;
     private final int maxSize;
 
+    /**
+     * Constructor.
+     *
+     * @param routes  the routes to use
+     * @param port    the port to use
+     * @param maxSize the maximum allowed request size
+     */
     ServerThread(Routes routes, int port, int maxSize) {
         this.routes = routes;
         this.port = port;
         this.maxSize = maxSize;
     }
 
+    /**
+     * Method containing the main server loop.
+     */
     @Override
     public void run() {
         try {
@@ -39,7 +50,7 @@ class ServerThread implements Runnable {
                     server.sendResponse(req);
                 } catch (IOException e) {
                     log.error("Unable to handle request!", e);
-                    if(Status.isStatus(e.getMessage())) {
+                    if (Status.isStatus(e.getMessage())) {
                         server.sendResponse(new Response("", Status.parse(e.getMessage()), ContentType.TEXT_PLAIN));
                     }
                 }
@@ -50,6 +61,9 @@ class ServerThread implements Runnable {
         }
     }
 
+    /**
+     * Stops the server on the next loop.
+     */
     void stop() {
         shouldStop = true;
     }

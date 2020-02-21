@@ -6,6 +6,11 @@ import javax.swing.text.AbstractDocument;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for the {@link ContentType} enum.
+ *
+ * @author Lukas Fülling (lukas@k40s.net)
+ */
 class ContentTypeTest {
 
     public static final String VALID = "text/plain";

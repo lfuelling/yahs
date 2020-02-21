@@ -37,7 +37,7 @@ import sh.lrk.yahs.*;
 public class Main {
     public static void main(String[] args) {
         Routes routes = new Routes(); // init routes
-        routes.add(Method.GET, "/", req -> new Response("Hello World!", Status.OK)); // add route
+        routes.add(Method.GET, "/",  ); // add route
         
         Server.start(routes,
         8080, // listen on port 8080

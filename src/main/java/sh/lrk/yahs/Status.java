@@ -3,6 +3,11 @@ package sh.lrk.yahs;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * This enum lists all available HTTP statuses according to https://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html.
+ *
+ * @author Lukas Fülling (lukas@k40s.net)
+ */
 public enum Status {
     OK("200 OK"),
     CREATED("201 Created"),
@@ -56,14 +61,30 @@ public enum Status {
 
     private final String httpRepresentation;
 
+    /**
+     * Constructor.
+     *
+     * @param httpRepresentation the value this status has in http
+     */
     Status(String httpRepresentation) {
         this.httpRepresentation = httpRepresentation;
     }
 
+    /**
+     * Getter for the HTTP representation.
+     *
+     * @return a string containing the HTTP representation
+     */
     public String getHttpRepresentation() {
         return httpRepresentation;
     }
 
+    /**
+     * This method can be used to determine a enum value from a given string.
+     *
+     * @param status a string containing a HTTP status
+     * @return the enum value corresponding to the string or null if nothing matched
+     */
     public static Status parse(String status) {
         AtomicReference<Status> res = new AtomicReference<>();
         Arrays.asList(values()).forEach(v -> {
@@ -74,9 +95,15 @@ public enum Status {
         return res.get();
     }
 
+    /**
+     * This method can be used to check if a given string is a HTTP status.
+     *
+     * @param s the string containing a HTTP status
+     * @return true if the string is a valid HTTP status (case insensitive)
+     */
     public static boolean isStatus(String s) {
         for (Status status : values()) {
-            if(status.httpRepresentation.toUpperCase().equals(s.trim().toUpperCase())) {
+            if (status.httpRepresentation.toUpperCase().equals(s.trim().toUpperCase())) {
                 return true;
             }
         }

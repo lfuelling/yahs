@@ -16,6 +16,11 @@ public final class Request {
     private String httpVersion = null;
     private HashMap<String, String> attrs;
 
+    /**
+     * Constructor.
+     *
+     * @param req the request
+     */
     Request(String req) {
         this.req = req;
         attrs = new HashMap<>();
@@ -46,10 +51,6 @@ public final class Request {
         }
     }
 
-    Iterator<String> getAttributeIterator() {
-        return attrs.keySet().iterator();
-    }
-
     private void setAttributes(String rawAttributes) {
         String[] attribs = rawAttributes.split("&");
 
@@ -61,6 +62,12 @@ public final class Request {
         }
     }
 
+    /**
+     * Method to get a request attribute (eg. get param) by key.
+     *
+     * @param key the param key
+     * @return the param value
+     */
     public String getAttribute(String key) {
         String ret = attrs.get(key);
         if (ret == null) {
@@ -73,18 +80,38 @@ public final class Request {
         attrs.put(key, value);
     }
 
+    /**
+     * Get the request {@link Method}.
+     *
+     * @return the request method.
+     */
     public Method getMethod() {
         return method;
     }
 
+    /**
+     * Get the HTTP version used.
+     *
+     * @return the HTTP version
+     */
     public String getHttpVersion() {
         return httpVersion;
     }
 
+    /**
+     * Get the request URL.
+     *
+     * @return the request url
+     */
     public String getUrl() {
         return url;
     }
 
+    /**
+     * Turn the request into a String.
+     *
+     * @return the request as string
+     */
     public String toString() {
         return req;
     }

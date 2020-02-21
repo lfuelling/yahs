@@ -73,7 +73,7 @@ public final class Response {
         Date date = new Date();
         String start = "HTTP/1.1 " + status.getHttpRepresentation() + "\r\n";
         header = "Date: " + date.toString() + "\r\n";
-        header += "Content-Type: " + contentType + "\r\n";
+        header += "Content-Type: " + contentType.getHttpRepresentation() + "\r\n";
         header += "Content-length: " + body.length + "\r\n";
 
         if (headers != null) {

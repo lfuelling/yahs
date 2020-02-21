@@ -6,7 +6,7 @@
 
     <groupId>sh.lrk</groupId>
     <artifactId>yahs</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.8</version>
     <packaging>jar</packaging>
 
     <description>

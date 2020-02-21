@@ -142,7 +142,7 @@ public final class Response {
                             v.replaceAll("\r", "").replaceAll("\n", ""));
         }
 
-        header += "\r\n";
+        header += "\r\n\r\n";
         header = start + header;
     }
 

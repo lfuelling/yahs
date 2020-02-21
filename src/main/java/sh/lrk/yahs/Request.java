@@ -61,7 +61,7 @@ public final class Request {
         }
     }
 
-    String getAttribute(String key) {
+    public String getAttribute(String key) {
         String ret = attrs.get(key);
         if (ret == null) {
             return "null";

@@ -7,6 +7,7 @@ public enum ContentType {
     TEXT_HTML("text/html"),
     TEXT_CSS("text/css"),
     TEXT_PLAIN("text/plain"),
+    TEXT_JAVASCRIPT("text/javascript"),
     IMAGE_XICON("image/x-icon"),
     IMAGE_JPEG("image/jpeg"),
     APPLICATION_OCTET_STREAM("application/octet-stream");

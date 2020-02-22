@@ -197,16 +197,10 @@ public final class Response {
                 return Response.getGenericErrorResponse(req);
             }
 
-            if (path.endsWith(".css")) {
-                return new Response(os.toByteArray(), status, TEXT_CSS);
-            } else if (path.endsWith(".htm") || path.endsWith(".html")) {
-                return new Response(os.toByteArray(), status, TEXT_HTML);
-            } else if (path.endsWith(".ico")) {
-                return new Response(os.toByteArray(), status, IMAGE_XICON);
-            } else if (path.endsWith(".jpg") || path.endsWith(".jpeg")) {
-                return new Response(os.toByteArray(), status, IMAGE_JPEG);
-            } else if (path.endsWith(".js")) {
-                return new Response(os.toByteArray(), status, TEXT_JAVASCRIPT);
+            String[] split = path.split("\\.");
+            ContentType contentType = getByExtension(split[split.length - 1]);
+            if (contentType != null) {
+                return new Response(os.toByteArray(), status, contentType);
             } else {
                 return new Response(os.toByteArray(), status, APPLICATION_OCTET_STREAM);
             }

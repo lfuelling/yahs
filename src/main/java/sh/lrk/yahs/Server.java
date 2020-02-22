@@ -51,7 +51,6 @@ public final class Server {
      */
     Request accept() throws IOException {
         client = socket.accept();
-        log.debug("New connection from: " + client.getInetAddress().toString());
         InputStream is = client.getInputStream();
         StringBuilder raw = new StringBuilder();
         int counter = 0;
@@ -64,6 +63,7 @@ public final class Server {
             c = is.read();
             raw.append((char) c);
         } while (is.available() > 0);
+        log.debug("New connection from: " + client.getInetAddress().toString());
         return new Request(raw.toString());
     }
 
@@ -103,9 +103,8 @@ public final class Server {
         Response res = getResponse(req);
         try (OutputStream out = client.getOutputStream()) {
             byte[] responseBytes = res.getResponseBytes();
-            log.debug("Sending Response:\n" + new String(responseBytes));
-
             out.write(responseBytes);
+            log.debug("Sent Response:\n" + new String(responseBytes));
         }
     }
 
@@ -118,8 +117,8 @@ public final class Server {
     void sendResponse(Response res) {
         try (OutputStream out = client.getOutputStream()) {
             byte[] responseBytes = res.getResponseBytes();
-            log.debug("Sending Response:\n" + new String(responseBytes));
             out.write(responseBytes);
+            log.debug("Sent Response:\n" + new String(responseBytes));
         } catch (IOException e) {
             log.error("Unable to send response!", e);
         }

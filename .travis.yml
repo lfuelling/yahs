@@ -6,8 +6,6 @@ jobs:
   - stage: build
     script:
     - mvn clean install -B -V -DskipTests
-    - mvn javadoc:javadoc
-    - ".util/pages.sh"
   - stage: test
     script:
     - mvn clean install -B -V
@@ -16,6 +14,8 @@ jobs:
     script:
     - mvn clean install -B -V
     - ".util/deploy.sh"
+    - mvn javadoc:javadoc
+    - ".util/pages.sh"
 env:
   global:
     secure: oBNrGPm2NUY6QxAli2UszidhIdc4XPbGedsrGYj+hYaDVC+grbX0FEC5zBr8HoV4HCNcjlYohqmXmhH04fyjBQ7xJd4q8xiH0H5A0XuZO6zSpBTUpBdXiZfiKbDXuMn0+CgAVRhcBNTDZmJGaGiORrUNhIh2R1JNQ/0bxJlcy5y16drgiQRmFh80WAycZrls1LKHc2KsmIj3L/lAXneo83clwYv0CCwz9yEsVSFI/z1UEmOSE72DhxFlWVvNwjcvAu836011s1+UizbKdPHEJGnx+R++gD6HYhMBfdRJj+WVMziEyiXDW2wszCeYpcs7gd5SuT6PizZqTukt2LuzTCEPR0b7H1FY2Gx9D78b79C3s0g+Cw6SHQqAdAvyllLatNWWQEGWSV3pPfjZxnTLzVERGdbgfXoNE8+YJSOmg3SSpSiTUyZFbu5wadbGHeWFFFpuncZM2Vo/ZgohPKvKeL3ADRUNt7EJ+pnaogTSw3mTtZ51Ihu9E42dJjWDx7fwKftNpDF9OPqxfhOewv+t3QWUyxcee6nci7zNzVzXdGmbj5K3WLcN3HH9cLMaYu6hRtNfz3XTOYJte4SWjkoy6EdvimXOaDEFa56bttdOP0IWGE11G5ZofXmbyMANbPgEfcpyF4263Jj9DECm2bF9Ws5UJo27vx+D4vAzAPjOd9g=

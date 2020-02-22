@@ -8,6 +8,10 @@ It also is not meant to handle high volumes of traffic and should not be conside
 
 ## Usage
 
+Below is a small example on how to use this software.
+
+### Dependencies
+
 Add the GammelCloud Repo:
 
 ```xml
@@ -29,6 +33,8 @@ Add the library to your dependencies:
 </dependency>
 ```
 
+### Starting a server
+
 Below is an example `main()` but technically you can start the server wherever you need to.
 
 ```java
@@ -45,6 +51,18 @@ public class Main {
     }
 }
 ```
+
+### Logging
+
+The easiest way to configure logging is by adding `slf4j-log4j12` to your dependencies and creating a 
+`log4j.properties` file in your resources folder containing a configuration similar to the one below:
+
+```
+log4j.rootLogger=INFO, STDOUT
+log4j.appender.STDOUT=org.apache.log4j.ConsoleAppender
+log4j.appender.STDOUT.layout=org.apache.log4j.PatternLayout
+log4j.appender.STDOUT.layout.ConversionPattern=%5p [%t] - %m%n
+``` 
 
 ## Projects using YAHS
 - [sh](https://github.com/lfuelling/sh)

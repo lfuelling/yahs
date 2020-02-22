@@ -29,7 +29,7 @@ Add the library to your dependencies:
 <dependency>
     <groupId>sh.lrk</groupId>
     <artifactId>yahs</artifactId>
-    <version>1.0.9</version>
+    <version>1.0.10</version>
 </dependency>
 ```
 

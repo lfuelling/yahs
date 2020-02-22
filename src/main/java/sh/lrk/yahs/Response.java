@@ -139,10 +139,10 @@ public final class Response {
         if (headers != null) {
             headers.forEach((k, v) ->
                     header += k.replaceAll("\r", "").replaceAll("\n", "") + ": " +
-                            v.replaceAll("\r", "").replaceAll("\n", ""));
+                            v.replaceAll("\r", "").replaceAll("\n", "") + "\r\n");
         }
 
-        header += "\r\n\r\n";
+        header += "\r\n";
         header = start + header;
     }
 

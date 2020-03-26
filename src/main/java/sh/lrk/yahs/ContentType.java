@@ -16,7 +16,8 @@ public enum ContentType {
     TEXT_JAVASCRIPT("text/javascript", "js"),
     IMAGE_XICON("image/x-icon", "ico"),
     IMAGE_JPEG("image/jpeg", "jpg", "jpeg"),
-    APPLICATION_OCTET_STREAM("application/octet-stream");
+    APPLICATION_OCTET_STREAM("application/octet-stream"),
+    FORM_URLENCODED("application/x-www-form-urlencoded");
 
     private final String httpRepresentation;
     private final String[] fileExtensions;

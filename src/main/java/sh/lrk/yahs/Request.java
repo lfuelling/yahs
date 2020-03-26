@@ -39,7 +39,7 @@ public final class Request {
         String[] firstLineSplit = firstLine.split(" ");
         if (firstLineSplit.length == 3) {
             method = Method.parse(firstLineSplit[0]);
-            httpVersion = firstLineSplit[2];
+            httpVersion = firstLineSplit[2].split("HTTP/")[1];
             if (method.equals(Method.POST)) {
                 url = firstLineSplit[1];
                 setAttributes(temp[temp.length - 1]);

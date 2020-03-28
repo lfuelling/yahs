@@ -2,10 +2,13 @@ package sh.lrk.yahs;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.net.InetAddress;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RequestTest {
-    private static final Request dummyGetRequest = new Request("GET / HTTP/1.1\r\n");
+    private static final Request dummyGetRequest = new Request("GET / HTTP/1.1\r\n", InetAddress.getLoopbackAddress());
+
     private static final String dummyJson = "{\"foo\":\"bar\"}";
     private static final String rawPostRequest = "POST / HTTP/1.1\r\n" +
             "Host: example.com\r\n" +
@@ -22,11 +25,12 @@ class RequestTest {
         assertEquals("1.1", dummyGetRequest.getHttpVersion());
         assertEquals(Method.GET, dummyGetRequest.getMethod());
         assertEquals("/", dummyGetRequest.getUrl());
+        assertEquals(InetAddress.getLoopbackAddress(), dummyGetRequest.getClientAddress());
     }
 
     @Test
     void testJsonPostRequest() {
-        Request r = new Request(rawPostRequest);
+        Request r = new Request(rawPostRequest, InetAddress.getLoopbackAddress());
         assertEquals(Method.POST, r.getMethod());
         assertEquals("/", r.getUrl());
         assertEquals("1.1", r.getHttpVersion());

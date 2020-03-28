@@ -3,8 +3,8 @@ package sh.lrk.yahs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.InetAddress;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Class that represents a request.
@@ -16,6 +16,7 @@ public final class Request {
     private static Logger log = LoggerFactory.getLogger(Request.class);
 
     private String req;
+    private final InetAddress clientAddress;
     private Method method = null;
     private String url = null;
     private String httpVersion = null;
@@ -25,9 +26,11 @@ public final class Request {
      * Constructor.
      *
      * @param req the request
+     * @param clientAddress the client's {@link InetAddress}
      */
-    Request(String req) {
+    Request(String req, InetAddress clientAddress) {
         this.req = req;
+        this.clientAddress = clientAddress;
         attrs = new HashMap<>();
         parse();
         log.debug("Incoming request:\n" + req);
@@ -111,6 +114,15 @@ public final class Request {
      */
     public String getUrl() {
         return url;
+    }
+
+    /**
+     * Get the client's {@link InetAddress}.
+     *
+     * @return the client's address
+     */
+    public InetAddress getClientAddress() {
+        return clientAddress;
     }
 
     /**

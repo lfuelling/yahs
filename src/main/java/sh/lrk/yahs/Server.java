@@ -64,7 +64,7 @@ public final class Server {
             raw.append((char) c);
         } while (is.available() > 0);
         log.debug("New connection from: " + client.getInetAddress().toString());
-        return new Request(raw.toString());
+        return new Request(raw.toString(), client.getInetAddress());
     }
 
     /**
